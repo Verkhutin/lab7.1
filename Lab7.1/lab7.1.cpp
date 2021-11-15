@@ -34,8 +34,7 @@ void Sort1(int** T, const int r, const int c) {
 				min = T[j][c];
 				imin = j;
 			}
-		T[imin][c] = T[i][c];
-		T[i][c] = min;
+		swap(T[imin], T[i]);
 	}
 }
 
@@ -64,7 +63,7 @@ void Sort3(int** T, const int r, const int c) {
 	 переставл€ютьс€ р€дки, щоб елементи третього стовпчика зростали*/
 	for (int i = 0; i < r - 1; i++)
 		for (int j = i + 1; j < r; j++)
-			if (T[i][0] == T[j][0] && T[i][1] == T[j][2]) {
+			if (T[i][0] == T[j][0] || T[i][1] == T[j][1] || T[i][0] == T[j][1] || T[i][1] == T[j][0]) {
 				for (int i = 0; i < r - 1; i++) {
 					int min = T[i][c];
 					int imin = i;
@@ -136,9 +135,14 @@ int main() {
 	cout << endl;
 	cout << "Amount = " << Amount(T, r, c) << endl;
 	cout << "Sum = " << Sum(T, r, c) << endl;
+	cout << endl;
 	cout << "Replacing relevant elements with 0: " << endl;
 	Zero(T, r, c);
 	Print(T, r, c);
+
+	for (int i = 0; i < r; i++)
+		delete[] T[i];
+	delete[] T;
 
 	return 0;
 }
